@@ -1,9 +1,6 @@
 # Infnet - Segundo Projeto de Back-end
 
-"images/locadora.png" alt="Locadora de Filmes" />
-</a>
-
-<h3 align="center">Projeto Back-end - Gestor de Estoque - Express e Typescript</h3>
+<h3 align="center">Gestor de Estoque - Express e Typescript</h3>
 Projeto em desenvolvimento.
 
 </div>

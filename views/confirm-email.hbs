@@ -1,0 +1,105 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+
+      @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500&display=swap');
+
+      *{ 
+        font-family: 'Oswald', sans-serif; 
+      }
+
+      .number
+      input::-webkit-outer-spin-button, .number input::-webkit-inner-spin-button
+      { -webkit-appearance: none; margin: 0; } input[type=number]
+      
+      .number { 
+        -moz-appearance: textfield;
+      } 
+      
+      form { 
+        max-width: 550px; 
+        margin: 0 auto;
+      }
+
+      label { 
+        font-size: 2em; 
+        display: block; 
+        text-align: center; 
+        margin-bottom: 0.1em;
+      }
+
+      .number { 
+        width: calc(16.66% - 2px); 
+        float: left; 
+        padding: 5px; 
+        box-sizing: border-box;
+      } 
+      
+      .number input{ 
+        width: 100%; 
+        height: 70px; 
+        font-size: 3em;
+        text-align: center; 
+        margin: 0; 
+        padding: 0; 
+        border: 1px solid #2c3e50;
+        border-radius: 5px; }
+      
+      .button-area { 
+        padding: 5px; }button{ cursor: pointer;
+        color: #fff; 
+        background-color: #2c3e50; 
+        padding: 10px; 
+        width: 100%;
+        border-radius: 10px; 
+        border: none; margin-top: 1em; 
+      }
+      
+      #message { 
+        color:#e74c3c; 
+        text-align: center; 
+        float: left; 
+        margin-top: 1.2em; 
+        width: 100%;
+      }
+
+    </style>
+  </head>
+  <body>
+    <form action="" method="POST">
+      <div>
+        <label>PIN</label>
+        <div class="number">
+          <input type="number" class="number" name="value0" />
+        </div>
+        <div class="number">
+          <input type="number" class="number" name="value1" />
+        </div>
+        <div class="number">
+          <input type="number" class="number" name="value2" />
+        </div>
+        <div class="number">
+          <input type="number" class="number" name="value3" />
+        </div>
+        <div class="number">
+          <input type="number" class="number" name="value4" />
+        </div>
+        <div class="number">
+          <input type="number" class="number" name="value5" />
+        </div>
+        <div id="message" style="display: none;">Digite o código PIN de 6 dígitos.</div>
+        <div class="button-area">
+            <button type="button" onclick="submitToken()">
+                <i style="display: none;" class="fas fa-spinner fa-spin" id="loading"></i>
+                <i style="display: none;" class="fa-regular fa-circle-check" id="check"></i>
+                <i style="display: none;" class="fa-solid fa-circle-exclamation" id="error"></i>
+                <span id="btn-text">VERIFICAR</span>
+            </button>
+      </div>
+    </form>
+  </body>
+</html>
