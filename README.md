@@ -15,6 +15,8 @@ Projeto em desenvolvimento.
 - mysql2
 - sequelize
 - tslib
+- nodemailer
+- nodemailer-express-handlebars
 
 ### Tecnologias utilizadas
 

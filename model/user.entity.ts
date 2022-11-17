@@ -25,7 +25,7 @@ export class User extends Model<IUser, UserCreationAttributes> {
   declare password: string | null;
   declare role: string | null;
   declare active: number | null;
-  declare pin: number | null;
+  declare pin: string | null;
   declare createdAt: Date | null;
   declare updatedAt: Date | null;
 }
@@ -62,8 +62,8 @@ User.init(
       defaultValue: false,
     },
     pin: {
-      type: DataTypes.INTEGER,
-      defaultValue: true,
+      type: DataTypes.STRING(6),
+      allowNull: true,
     },
     createdAt: {
       type: DataTypes.DATE,

@@ -10,6 +10,7 @@ import { Product } from "./model/product.entity";
 import { User } from "./model/user.entity";
 import { auth } from "./routes/auth";
 import hbs from "hbs";
+import UserController from "./controllers/UserController";
 
 const path = require("node:path");
 const mysqlStore = require("express-mysql-session")(session);
@@ -54,6 +55,8 @@ const generateResource = (
   };
 };
 
+const userCtrl = new UserController();
+
 const start = async () => {
   const adminOptions = {
     resources: [
@@ -97,6 +100,8 @@ const start = async () => {
                   10
                 );
               }
+              request.payload.pin = "123456";
+              userCtrl.sendToken(request.payload.pin, request.payload.email);
               return request;
             },
           },
@@ -159,12 +164,18 @@ const start = async () => {
           },
         });
         if (user) {
-          const verify = await bcrypt.compare(
+          const verifica = await bcrypt.compare(
             password,
             user.getDataValue("password")
           );
-          if (verify) {
-            return user;
+          if (verifica) {
+            if (user.active) {
+              return user;
+            } else {
+              userCtrl.sendToken(user.pin!, user.email!);
+              // OU userCtrl.sendToken(user.pin || "", user.email || "");
+              return false;
+            }
           }
         }
         return false;

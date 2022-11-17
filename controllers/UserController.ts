@@ -1,6 +1,10 @@
 import { User } from "../model/user.entity";
-
+import Mail from "../utils/Mail";
 class UserController {
+  mail: Mail;
+  constructor() {
+    this.mail = new Mail();
+  }
   public async confirmEmail(pin: string): Promise<any> {
     let result = {
       statusCode: 200,
@@ -33,7 +37,14 @@ class UserController {
     }
     return result;
   }
-  public sendEmail(email: string): void {}
+  public async sendToken(token: string, email: string): Promise<any> {
+    console.log(token);
+    this.mail.sendEmail(
+      email,
+      "Confirmação de e-mail",
+      "HTML de envio de e-mail"
+    );
+  }
 }
 
 export default UserController;
