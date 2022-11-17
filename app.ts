@@ -186,11 +186,11 @@ const start = async () => {
     }
   );
 
-  app.use(bodyParser.urlencoded({ extended: true }));
   app.use(express.json());
   hbs.registerPartials(path.join("_dirname", "views"));
   app.set("view engine", "hbs");
   app.use(admin.options.rootPath, adminRouter);
+  app.use(bodyParser.urlencoded({ extended: true }));
   app.use("/auth", auth);
 
   app.listen(PORT, () => {
