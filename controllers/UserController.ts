@@ -2,8 +2,8 @@ import { User } from "../model/user.entity";
 import Mail from "../utils/Mail";
 class UserController {
   mail: Mail;
-  constructor() {
-    this.mail = new Mail();
+  constructor(rootDir: string | null) {
+    this.mail = new Mail(rootDir);
   }
   public async confirmEmail(pin: string): Promise<any> {
     let result = {
@@ -37,13 +37,20 @@ class UserController {
     }
     return result;
   }
-  public async sendToken(token: string, email: string): Promise<any> {
-    console.log(token);
-    this.mail.sendEmail(
-      email,
-      "Confirmação de e-mail",
-      "HTML de envio de e-mail"
-    );
+  public async sendToken(
+    pin: string | null,
+    email: string,
+    name: string | null
+  ): Promise<any> {
+    try {
+      this.mail.sendEmail(email, "Confirmação de E-mail", "token-email", {
+        pin,
+        name,
+        url: "http://localhost:3000/auth/confirm-email",
+      });
+    } catch (err) {
+      console.log(`Erro ao enviar e-mail ${err}`);
+    }
   }
 }
 
