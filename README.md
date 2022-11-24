@@ -5,6 +5,14 @@ Projeto em desenvolvimento.
 
 </div>
 
+### Iniciar Projeto
+
+Terminal:
+npm run start-dev
+Rotas:
+http://localhost:3000/admin/login
+http://localhost:3000/auth/confirm-email
+
 ### Dependências
 
 - adminjs

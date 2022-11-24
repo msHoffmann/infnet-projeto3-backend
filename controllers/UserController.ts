@@ -32,7 +32,7 @@ class UserController {
         result["statusCode"] = 400;
       }
     } catch (err) {
-      result["msg"] = "Erro ao tentar validar o e-mail. Tente novamente.";
+      result["msg"] = "Erro ao tentar validar o E-mail. Tente novamente.";
       result["statusCode"] = 400;
     }
     return result;
@@ -49,7 +49,7 @@ class UserController {
         url: "http://localhost:3000/auth/confirm-email",
       });
     } catch (err) {
-      console.log(`Erro ao enviar e-mail ${err}`);
+      console.log(`Erro ao enviar E-mail ${err}.`);
     }
   }
 }

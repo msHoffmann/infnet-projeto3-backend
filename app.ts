@@ -102,7 +102,9 @@ const start = async () => {
                   10
                 );
               }
-              request.payload.pin = (Math.floor(100000 + Math.random() * 900000)).toString();
+              request.payload.pin = Math.floor(
+                100000 + Math.random() * 900000
+              ).toString();
               userCtrl.sendToken(
                 request.payload.pin,
                 request.payload.email,
