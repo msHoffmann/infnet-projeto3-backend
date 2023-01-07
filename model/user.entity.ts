@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize";
-import sequelize from "../db";
+import { sequelize } from "../db";
 
 // padrão typescript: I de interface
 interface IUser {

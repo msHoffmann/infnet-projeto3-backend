@@ -15,16 +15,8 @@ http://localhost:3000/auth/confirm-email
 
 ### Dependências
 
-- adminjs
-- dotenv
-- express
-- express-formidable
-- express-session
-- mysql2
-- sequelize
-- tslib
-- nodemailer
-- nodemailer-express-handlebars
+- chart.js
+- fakerjs
 
 ### Tecnologias utilizadas
 

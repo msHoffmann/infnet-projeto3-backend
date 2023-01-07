@@ -142,6 +142,8 @@
             }
         }
         
+        loadPin();
+    
         numbers.forEach(number => {
             number.addEventListener('keyup', (event) => {
                 let name = parseInt(event.currentTarget.name);

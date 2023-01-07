@@ -1,8 +1,9 @@
 import AdminJS from "adminjs";
 import AdminJSExpress from "@adminjs/express";
 import express from "express";
-import sequelize from "./db";
+import { sequelize, mongooseDb } from "./db";
 import * as AdminJSSequelize from "@adminjs/sequelize";
+import * as AdminJSMongoose from "@adminjs/mongoose";
 import bcrypt from "bcrypt";
 import session from "express-session";
 import { Category } from "./model/category.entity";
@@ -11,6 +12,10 @@ import { User } from "./model/user.entity";
 import { auth } from "./routes/auth";
 import hbs from "hbs";
 import UserController from "./controllers/UserController";
+import { dashboard } from "./routes/dashboard";
+import { ReportProduct } from "./model/report_product.entity";
+import { ReportUser } from "./model/report_user.entity";
+import { ReportCategory } from "./model/report_category.entity";
 
 const path = require("node:path");
 const mysqlStore = require("express-mysql-session")(session);
@@ -21,6 +26,11 @@ const PORT = process.env.PORT_HOST;
 AdminJS.registerAdapter({
   Resource: AdminJSSequelize.Resource,
   Database: AdminJSSequelize.Database,
+});
+
+AdminJS.registerAdapter({
+  Resource: AdminJSMongoose.Resource,
+  Database: AdminJSMongoose.Database,
 });
 
 const ROOT_DIR = __dirname;
@@ -64,6 +74,9 @@ const start = async () => {
     resources: [
       generateResource(Product),
       generateResource(Category),
+      generateResource(ReportCategory),
+      generateResource(ReportProduct),
+      generateResource(ReportUser),
       generateResource(
         User,
         {
@@ -138,9 +151,8 @@ const start = async () => {
       component: AdminJS.bundle("./components/dashboard"),
     },
     branding: {
-      favicon:
-        "https://userscontent2.emaze.com/images/8dfa73cf-f316-405c-aae3-34cdf71d34bc/edc0d4ec9c1dcd3a8c47158681c5c20b.png",
-      logo: "https://userscontent2.emaze.com/images/8dfa73cf-f316-405c-aae3-34cdf71d34bc/edc0d4ec9c1dcd3a8c47158681c5c20b.png",
+      favicon: "/img/boardgames.png",
+      logo: "/img/boardgames.png",
       companyName: "Projeto 2 de Back-end",
     },
   };
@@ -149,6 +161,10 @@ const start = async () => {
     .sync()
     .then((result) => console.log(result))
     .catch((err) => console.log(err));
+
+  mongooseDb.once("open", () => {
+    console.log("Conexão ao aberta com sucesso");
+  });
 
   const admin = new AdminJS(adminOptions);
 
@@ -211,7 +227,9 @@ const start = async () => {
   app.use(admin.options.rootPath, adminRouter);
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use("/auth", auth);
-
+  app.use("/dashboard", dashboard);
+  app.use("/img", express.static("img"));
+  // nome da rota + nome da pasta
   app.listen(PORT, () => {
     console.log("Projeto 3: Back-end rodando :)");
   });
