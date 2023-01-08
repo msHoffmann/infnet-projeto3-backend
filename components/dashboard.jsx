@@ -32,23 +32,25 @@ ChartJS.register(
   ArcElement
 );
 
+const col2 = {
+  width: "80%",
+  boxSizing: "border-box",
+  padding: "5px",
+  display: "grid",
+  margin: "auto",
+};
 const col = {
   width: "50%",
   float: "left",
   boxSizing: "border-box",
   padding: "5px",
-  color: "#555",
 };
 const item = {
   width: "100%",
-  background: "#ede7ed",
-  height: "200px",
-  color: "#1323",
 };
-
 const input = {
   padding: "5px",
-  fontSize: "1em",
+  fontSize: "1.2em",
 };
 
 export const optionsUsersQuantity = {
@@ -59,7 +61,7 @@ export const optionsUsersQuantity = {
     },
     title: {
       display: true,
-      text: "Users by Months",
+      text: "Users by Days",
     },
   },
 };
@@ -79,7 +81,7 @@ const Dashboard = () => {
     fetcher
   );
   const { data: dataCategories } = useSWR(
-    `http://localhost:3000/dashboard/categories/best?start_date=${startDate}&end_date=${endDate}&select_date=${selectDate}`,
+    `http://localhost:3000/dashboard/categories/best-sellers?start_date=${startDate}&end_date=${endDate}&select_date=${selectDate}`,
     fetcher
   );
 
@@ -90,11 +92,6 @@ const Dashboard = () => {
     }
   }, [selectDate]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setId(2);
-    }, 5000);
-  });
   return (
     <div className={"container-fluid"}>
       <div
@@ -105,8 +102,6 @@ const Dashboard = () => {
           boxSizing: "border-box",
         }}
       >
-        {/* {data?.key}
-        <button onClick={mutate}>Mutação</button> */}
         <input
           disabled={selectDate !== "custom"}
           value={startDate}
@@ -134,15 +129,6 @@ const Dashboard = () => {
           <option value="365">1 ano</option>
         </select>
       </div>
-      {dataUsersQuantity ? (
-        <div style={col}>
-          <div style={item}>
-            <Bar options={optionsUsersQuantity} data={dataUsersQuantity} />
-          </div>
-        </div>
-      ) : (
-        "Não há dados para esse Dashboard."
-      )}
       <div style={col}>
         <div style={item}>
           {ordersByProduct ? (
@@ -159,12 +145,7 @@ const Dashboard = () => {
           )}
         </div>
       </div>
-      <div
-        style={{
-          ...col,
-          width: "100%",
-        }}
-      >
+      <div style={col}>
         <div style={item}>
           {dataCategories ? (
             <Radar
@@ -180,6 +161,15 @@ const Dashboard = () => {
           )}
         </div>
       </div>
+      {dataUsersQuantity ? (
+        <div style={col2}>
+          <div style={item}>
+            <Bar options={optionsUsersQuantity} data={dataUsersQuantity} />
+          </div>
+        </div>
+      ) : (
+        "Não há dados para esse Dashboard."
+      )}
     </div>
   );
 };

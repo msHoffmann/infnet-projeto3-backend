@@ -151,9 +151,9 @@ const start = async () => {
       component: AdminJS.bundle("./components/dashboard"),
     },
     branding: {
-      favicon: "/img/boardgames.png",
-      logo: "/img/boardgames.png",
-      companyName: "Projeto 2 de Back-end",
+      favicon: "/img/adminjs.png",
+      logo: "/img/adminjs.png",
+      companyName: "Projeto 3 de Back-end",
     },
   };
   const app = express();
@@ -197,7 +197,7 @@ const start = async () => {
               return user;
             } else {
               userCtrl.sendToken(user.pin!, user.email!, user.name!);
-              // OU userCtrl.sendToken(user.pin || "", user.email || "");
+              // Ou pode escrever: userCtrl.sendToken(user.pin || "", user.email || "");
               return false;
             }
           }
@@ -221,6 +221,7 @@ const start = async () => {
     }
   );
 
+  // app.use(bodyParser.json());
   app.use(express.json());
   hbs.registerPartials(path.join("_dirname", "views"));
   app.set("view engine", "hbs");
